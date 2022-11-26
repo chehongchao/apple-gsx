@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.gsx.mapper.GsxGoodMapper">
+    
+    <resultMap type="GsxGood" id="GsxGoodResult">
+        <result property="goodId"    column="good_id"    />
+        <result property="goodName"    column="good_name"    />
+        <result property="goodClass"    column="good_class"    />
+        <result property="goodImage"    column="good_image"    />
+        <result property="goodDetail"    column="good_detail"    />
+        <result property="goodStock"    column="good_stock"    />
+        <result property="goodPrice"    column="good_price"    />
+        <result property="goodCostPrice"    column="good_cost_price"    />
+        <result property="goodMarkPrice"    column="good_mark_price"    />
+        <result property="lowStock"    column="low_stock"    />
+        <result property="apiType"    column="api_type"    />
+        <result property="apiUrl"    column="api_url"    />
+        <result property="orderNum"    column="order_num"    />
+        <result property="isDeleted"    column="is_deleted"    />
+        <result property="isPublish"    column="is_publish"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectGsxGoodVo">
+        select good_id, good_name, good_class, good_image, good_detail, good_stock, good_price, good_cost_price, good_mark_price, low_stock, api_type, api_url, order_num, is_deleted, is_publish, create_by, create_time, update_by, update_time, remark from gsx_good
+    </sql>
+
+    <select id="selectGsxGoodList" parameterType="GsxGood" resultMap="GsxGoodResult">
+        <include refid="selectGsxGoodVo"/>
+        <where>  
+            <if test="goodName != null  and goodName != ''"> and good_name like concat('%', #{goodName}, '%')</if>
+            <if test="goodClass != null  and goodClass != ''"> and good_class = #{goodClass}</if>
+            <if test="apiType != null  and apiType != ''"> and api_type = #{apiType}</if>
+            <if test="isDeleted != null "> and is_deleted = #{isDeleted}</if>
+            <if test="isPublish != null "> and is_publish = #{isPublish}</if>
+            <if test="createBy != null  and createBy != ''"> and create_by = #{createBy}</if>
+            <if test="createTime != null "> and create_time = #{createTime}</if>
+            <if test="updateBy != null  and updateBy != ''"> and update_by = #{updateBy}</if>
+            <if test="updateTime != null "> and update_time = #{updateTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectGsxGoodByGoodId" parameterType="Long" resultMap="GsxGoodResult">
+        <include refid="selectGsxGoodVo"/>
+        where good_id = #{goodId}
+    </select>
+        
+    <insert id="insertGsxGood" parameterType="GsxGood" useGeneratedKeys="true" keyProperty="goodId">
+        insert into gsx_good
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodName != null">good_name,</if>
+            <if test="goodClass != null">good_class,</if>
+            <if test="goodImage != null">good_image,</if>
+            <if test="goodDetail != null">good_detail,</if>
+            <if test="goodStock != null">good_stock,</if>
+            <if test="goodPrice != null">good_price,</if>
+            <if test="goodCostPrice != null">good_cost_price,</if>
+            <if test="goodMarkPrice != null">good_mark_price,</if>
+            <if test="lowStock != null">low_stock,</if>
+            <if test="apiType != null">api_type,</if>
+            <if test="apiUrl != null">api_url,</if>
+            <if test="orderNum != null">order_num,</if>
+            <if test="isDeleted != null">is_deleted,</if>
+            <if test="isPublish != null">is_publish,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodName != null">#{goodName},</if>
+            <if test="goodClass != null">#{goodClass},</if>
+            <if test="goodImage != null">#{goodImage},</if>
+            <if test="goodDetail != null">#{goodDetail},</if>
+            <if test="goodStock != null">#{goodStock},</if>
+            <if test="goodPrice != null">#{goodPrice},</if>
+            <if test="goodCostPrice != null">#{goodCostPrice},</if>
+            <if test="goodMarkPrice != null">#{goodMarkPrice},</if>
+            <if test="lowStock != null">#{lowStock},</if>
+            <if test="apiType != null">#{apiType},</if>
+            <if test="apiUrl != null">#{apiUrl},</if>
+            <if test="orderNum != null">#{orderNum},</if>
+            <if test="isDeleted != null">#{isDeleted},</if>
+            <if test="isPublish != null">#{isPublish},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateGsxGood" parameterType="GsxGood">
+        update gsx_good
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="goodName != null">good_name = #{goodName},</if>
+            <if test="goodClass != null">good_class = #{goodClass},</if>
+            <if test="goodImage != null">good_image = #{goodImage},</if>
+            <if test="goodDetail != null">good_detail = #{goodDetail},</if>
+            <if test="goodStock != null">good_stock = #{goodStock},</if>
+            <if test="goodPrice != null">good_price = #{goodPrice},</if>
+            <if test="goodCostPrice != null">good_cost_price = #{goodCostPrice},</if>
+            <if test="goodMarkPrice != null">good_mark_price = #{goodMarkPrice},</if>
+            <if test="lowStock != null">low_stock = #{lowStock},</if>
+            <if test="apiType != null">api_type = #{apiType},</if>
+            <if test="apiUrl != null">api_url = #{apiUrl},</if>
+            <if test="orderNum != null">order_num = #{orderNum},</if>
+            <if test="isDeleted != null">is_deleted = #{isDeleted},</if>
+            <if test="isPublish != null">is_publish = #{isPublish},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where good_id = #{goodId}
+    </update>
+
+    <delete id="deleteGsxGoodByGoodId" parameterType="Long">
+        delete from gsx_good where good_id = #{goodId}
+    </delete>
+
+    <delete id="deleteGsxGoodByGoodIds" parameterType="String">
+        delete from gsx_good where good_id in 
+        <foreach item="goodId" collection="array" open="(" separator="," close=")">
+            #{goodId}
+        </foreach>
+    </delete>
+</mapper>
